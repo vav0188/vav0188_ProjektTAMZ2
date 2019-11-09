@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Piskvorky</string>
+    <string name="title_activity_game">GameActivity</string>
+</resources>
