@@ -14,7 +14,7 @@ public class GameActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         gameView = new GameView(this);
-        gameView.setBackgroundColor(Color.WHITE);
+
         setContentView(gameView);
 
 

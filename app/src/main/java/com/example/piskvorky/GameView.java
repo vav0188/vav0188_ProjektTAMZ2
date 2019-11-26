@@ -14,7 +14,7 @@ public class GameView extends View {
     private int rows;
     private int cols;
 
-    Paint paint;
+    Paint paint = new Paint();
     Canvas canvas;
     Context context;
     int canvasHeight;
@@ -24,9 +24,7 @@ public class GameView extends View {
         super(context);
 
         this.context = this.getContext();
-        this.paint = new Paint();
     }
-
 
     @Override
     public void onDraw(Canvas canvas) {
