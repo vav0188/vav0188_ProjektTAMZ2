@@ -3,7 +3,11 @@ package com.example.piskvorky;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -41,6 +45,22 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        SharedPreferences mPrefs = getSharedPreferences("Settings", 0);
+        boolean music = mPrefs.getBoolean("music", true);
+
+        if(music == true) {
+            Log.d("ano","ano");
+
+            Intent musicServ = new Intent(this, MusicService.class);
+            startService(musicServ);
+        }
+        if(music == false) {
+            Log.d("ano","ano");
+
+            Intent musicServ = new Intent(this, MusicService.class);
+            stopService(musicServ);
+        }
 
 
 
