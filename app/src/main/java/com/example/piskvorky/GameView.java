@@ -1,6 +1,9 @@
 package com.example.piskvorky;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -8,6 +11,7 @@ import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.media.AudioManager;
 import android.media.ToneGenerator;
+import android.os.Handler;
 import android.util.Log;
 import android.view.MotionEvent;
 
@@ -15,6 +19,10 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import androidx.core.view.MotionEventCompat;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class GameView extends View {
 
@@ -27,19 +35,22 @@ public class GameView extends View {
     boolean sound = true;
     boolean first = true;
 
+    Database db;
+
     Paint pnt;
     Canvas canvas;
     Context context;
     int canvasHeight;
     Logic logic;
     int[][] board;
-
-
+    GameActivity ga = new GameActivity();
 
     public GameView(Context context) {
         super(context);
         this.pnt = new Paint();
         this.context = this.getContext();
+
+        this.db = new Database(context);
 
 
     }
@@ -132,7 +143,8 @@ public class GameView extends View {
                 int col = (int)((int)e.getX() - 50 + centerX) / (int)this.cellSize;
                 int row = (int)((int)e.getY() - 70 + centerY) / (int)this.cellSize;
 
-                if(logic.checkWinner() == 0){
+                if(logic.checkWinner() == 0)
+                {
                 if(board[row][col] == 0){
                 this.logic.move(row, col);
 
@@ -143,8 +155,48 @@ public class GameView extends View {
                 this.invalidate();
 
                 return true;}}
-                else
+                else if(logic.checkWinner() == 1)
+                {
+                    AlertDialog alert;
+                    alert = new AlertDialog.Builder(this.context).create();
+                    alert.setTitle("Konec hry!");
+                    alert.setMessage("Vyhrál hráč s "+FIRST+" za " + this.logic.getMoves() + " tahů! ");
+                    alert.setButton(AlertDialog.BUTTON_NEUTRAL, "OK", new DialogInterface.OnClickListener(){
+
+                        @Override
+                        public void onClick(DialogInterface dialog, int which)
+                        {
+                            String date = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
+
+                            db.insert(date,"Jmeno",logic.getMoves());
+
+                        }
+                    });
+
+                    alert.show();
                     return false;
+                }
+                else if(logic.checkWinner() == 2)
+                {
+                    AlertDialog alert;
+                    alert = new AlertDialog.Builder(this.context).create();
+                    alert.setTitle("Konec hry!");
+                    alert.setMessage("Vyhrál hráč s "+SECOND+" za " + this.logic.getMoves() + " tahů! ");
+                    alert.setButton(AlertDialog.BUTTON_NEUTRAL, "OK", new DialogInterface.OnClickListener(){
+
+                        @Override
+                        public void onClick(DialogInterface dialog, int which)
+                        {
+                            String date = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
+
+                            db.insert(date,"Jmeno",logic.getMoves());
+
+                        }
+                    });
+
+                    alert.show();
+                    return false;
+                }
 
                 return false;
 
@@ -153,5 +205,7 @@ public class GameView extends View {
 
         }
     }
+
+
 
 }

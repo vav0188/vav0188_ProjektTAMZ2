@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
@@ -16,6 +18,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
 
         Button novaHra = (Button)findViewById(R.id.btnNewGame);
@@ -53,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
             Log.d("ano","ano");
 
             Intent musicServ = new Intent(this, MusicService.class);
+            stopService(musicServ);
             startService(musicServ);
         }
         if(music == false) {
@@ -61,9 +66,13 @@ public class MainActivity extends AppCompatActivity {
             Intent musicServ = new Intent(this, MusicService.class);
             stopService(musicServ);
         }
-
-
-
-
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Intent musicServ = new Intent(this, MusicService.class);
+        stopService(musicServ);
+    }
+
 }
