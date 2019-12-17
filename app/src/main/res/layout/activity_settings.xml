@@ -4,43 +4,48 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SettingsActivity">
-
-    <Switch
-        android:id="@+id/swKrizky"
-        android:layout_width="134dp"
-        android:layout_height="65dp"
-        android:text="Začínají křízky"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView"
-        app:layout_constraintVertical_bias="0.12" />
-
-    <Switch
-        android:id="@+id/swZvuk"
-        android:layout_width="134dp"
-        android:layout_height="65dp"
-        android:text="Zvuky"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/swKrizky"
-        app:layout_constraintVertical_bias="0.092" />
+    tools:context=".SettingsActivity"
+    android:background="@drawable/background"
+    >
 
     <Switch
         android:id="@+id/swHudba"
         android:layout_width="134dp"
         android:layout_height="65dp"
         android:text="Hudba"
+        android:textColor="#000000"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/swZvuk"
-        app:layout_constraintVertical_bias="0.156" />
+        app:layout_constraintVertical_bias="0.18" />
+
+    <Switch
+        android:id="@+id/swZvuk"
+        android:layout_width="134dp"
+        android:layout_height="65dp"
+        android:text="Zvuky"
+        android:textColor="#000000"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/swKrizky"
+        app:layout_constraintVertical_bias="0.107" />
+
+    <Switch
+        android:id="@+id/swKrizky"
+        android:layout_width="134dp"
+        android:layout_height="65dp"
+        android:text="Začínají křízky"
+        android:textColor="#000000"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        app:layout_constraintVertical_bias="0.191" />
 
     <ImageView
         android:id="@+id/imageView"
@@ -59,11 +64,24 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@android:string/ok"
+        android:background="@color/colorPrimary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/swHudba"
         app:layout_constraintVertical_bias="0.293" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:textSize="20dp"
+        android:textColor="@color/colorPrimaryDark"
+        android:text="Nastavení"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

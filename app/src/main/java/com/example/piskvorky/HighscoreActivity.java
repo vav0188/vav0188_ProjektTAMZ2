@@ -24,16 +24,20 @@ public class HighscoreActivity extends AppCompatActivity {
 
         db = new Database(getApplicationContext());
         ListView list = (ListView)findViewById(R.id.highscoreList);
+
         List<Score> scores = db.select();
         final List<String> lst = new ArrayList<String>();
 
+        int p = 1;
+
         for (Score score : scores) {
-//                System.out.println(status.getUser().getName() + ":" +
-//                        status.getText());
-            lst.add(score.getID()+" - "+score.getScore());
+//
+            lst.add(p+". "+score.getID()+" - "+score.getName()+" - "+score.getScore());
+            p++;
         }
 
         ArrayAdapter ad = new ArrayAdapter(this,android.R.layout.simple_list_item_1,lst);
         list.setAdapter(ad);
+
     }
 }

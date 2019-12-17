@@ -12,58 +12,50 @@ import android.view.WindowManager;
 
 public class GameActivity extends AppCompatActivity {
 
-    GameView gameView;
+  GameView gameView;
 
-    long startTime = 0;
-    int seconds = 0;
+  long startTime = 0;
+  int seconds = 0;
 
-    //runs without a timer by reposting this handler at the end of the runnable
-    Handler timerHandler = new Handler();
-    Runnable timerRunnable = new Runnable() {
-
-        @Override
-        public void run() {
-            long millis = System.currentTimeMillis() - startTime;
-            seconds = (int) (millis / 1000);
-            int minutes = seconds / 60;
-            seconds = seconds % 60;
-
-            timerHandler.postDelayed(this, 500);
-        }
-    };
-
-
+  //runs without a timer by reposting this handler at the end of the runnable
+  Handler timerHandler = new Handler();
+  Runnable timerRunnable = new Runnable() {
 
     @Override
-    public void onPause() {
-        super.onPause();
-        timerHandler.removeCallbacks(timerRunnable);
+    public void run() {
+      long millis = System.currentTimeMillis() - startTime;
+      seconds = (int) (millis / 1000);
+      int minutes = seconds / 60;
+      seconds = seconds % 60;
+
+      timerHandler.postDelayed(this, 500);
     }
+  };
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    requestWindowFeature(Window.FEATURE_NO_TITLE);
+    getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        SharedPreferences mPrefs = getSharedPreferences("Settings", 0);
-        gameView = new GameView(this);
-        gameView.setBackgroundColor(Color.WHITE);
-        gameView.first = mPrefs.getBoolean("cross", true);
-        setContentView(gameView);
+    SharedPreferences mPrefs = getSharedPreferences("Settings", 0);
+    gameView = new GameView(this);
+    gameView.setBackgroundColor(Color.TRANSPARENT);
+    gameView.first = mPrefs.getBoolean("cross", true);
+    setContentView(gameView);
 
 
-        gameView.sound = mPrefs.getBoolean("sound", true);
-    }
+    gameView.sound = mPrefs.getBoolean("sound", true);
+  }
 
-    public int getSecs()
-    {
-        timerHandler.removeCallbacks(timerRunnable);
-        return seconds;
-    }
+  public int getSecs()
+  {
+    timerHandler.removeCallbacks(timerRunnable);
+    return seconds;
+  }
 
-    public void Finish() {
-        Intent intent = new Intent(GameActivity.this, MainActivity.class);
-        startActivity(intent);
-    }
+  public void Finish() {
+    Intent intent = new Intent(GameActivity.this, MainActivity.class);
+    startActivity(intent);
+  }
 }

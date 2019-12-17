@@ -31,6 +31,12 @@ public class MusicService extends Service {
         player.release();
     }
 
+    public void onPause() {
+        player.stop();
+    }
+
+
+
 
 
 

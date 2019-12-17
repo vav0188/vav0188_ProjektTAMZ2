@@ -13,18 +13,24 @@ import android.media.AudioManager;
 import android.media.ToneGenerator;
 import android.os.Handler;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 
 
+import android.view.SurfaceView;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 
+import androidx.core.content.ContextCompat;
 import androidx.core.view.MotionEventCompat;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class GameView extends View {
+public class GameView extends SurfaceView {
 
     private int cellSize = 100;
     private int rows;
@@ -36,6 +42,7 @@ public class GameView extends View {
     boolean first = true;
 
     Database db;
+    EditText input;
 
     Paint pnt;
     Canvas canvas;
@@ -77,9 +84,9 @@ public class GameView extends View {
             this.logic = new Logic(rows, cols);
             this.board = this.logic.getBoard();
         }
-
-
-        this.pnt.setColor(Color.TRANSPARENT);
+        int color = ContextCompat.getColor(context, R.color.green);
+        this.setBackgroundColor(color);
+        this.pnt.setColor(color);
         canvas.drawRect(0, 0, canvas.getWidth(), canvasHeight, this.pnt);
         this.pnt.setStrokeWidth(2);
         this.pnt.setColor(Color.BLACK);
@@ -135,6 +142,7 @@ public class GameView extends View {
     public boolean onTouchEvent(MotionEvent e) {
         int action = MotionEventCompat.getActionMasked(e);
 
+
         switch (action) {
             case (MotionEvent.ACTION_DOWN):
                 int centerX = (canvasHeight % this.cellSize) / 2;
@@ -150,52 +158,80 @@ public class GameView extends View {
 
                 board = this.logic.getBoard();
                 if(sound == true){
-                    ToneGenerator toneG = new ToneGenerator(AudioManager.STREAM_RING, 50);
+                    ToneGenerator toneG = new ToneGenerator(AudioManager.STREAM_RING, 75);
                     toneG.startTone(ToneGenerator.TONE_CDMA_ALERT_NETWORK_LITE, 200);}
                 this.invalidate();
 
                 return true;}}
-                else if(logic.checkWinner() == 1)
+                if(logic.checkWinner() == 1)
                 {
-                    AlertDialog alert;
-                    alert = new AlertDialog.Builder(this.context).create();
+                    AlertDialog.Builder alert;
+                    alert = new AlertDialog.Builder(this.context);
+                    input = new EditText(this.context);
+                    alert.setView(input);
+                    //View dView = getLayoutInflater
+
+
                     alert.setTitle("Konec hry!");
-                    alert.setMessage("Vyhrál hráč s "+FIRST+" za " + this.logic.getMoves() + " tahů! ");
-                    alert.setButton(AlertDialog.BUTTON_NEUTRAL, "OK", new DialogInterface.OnClickListener(){
+                    alert.setMessage("Vyhrál hráč s "+FIRST+" za " + this.logic.getMoves() + " tahů! \nVlož své jméno.");
+                    alert.setPositiveButton("Přidat", new DialogInterface.OnClickListener(){
 
                         @Override
                         public void onClick(DialogInterface dialog, int which)
                         {
                             String date = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
+                            String txt = input.getText().toString();
+                            if(input.getText().toString() =="")
+                                txt = "Empty";
 
-                            db.insert(date,"Jmeno",logic.getMoves());
+
+                            db.insert(date,txt,logic.getMoves());
+
+
 
                         }
                     });
 
-                    alert.show();
+                    AlertDialog ad = alert.create();
+                    ad.show();
                     return false;
                 }
-                else if(logic.checkWinner() == 2)
+                if(logic.checkWinner() == 2)
                 {
-                    AlertDialog alert;
-                    alert = new AlertDialog.Builder(this.context).create();
+
+
+                    AlertDialog.Builder alert;
+                    alert = new AlertDialog.Builder(this.context);
+                    input = new EditText(this.context);
+                    alert.setView(input);
+                    //View dView = getLayoutInflater
+
+
                     alert.setTitle("Konec hry!");
-                    alert.setMessage("Vyhrál hráč s "+SECOND+" za " + this.logic.getMoves() + " tahů! ");
-                    alert.setButton(AlertDialog.BUTTON_NEUTRAL, "OK", new DialogInterface.OnClickListener(){
+                    alert.setMessage("Vyhrál hráč s "+SECOND+" za " + this.logic.getMoves() + " tahů! \nVlož své jméno.");
+                    alert.setPositiveButton("Přidat", new DialogInterface.OnClickListener(){
 
                         @Override
                         public void onClick(DialogInterface dialog, int which)
                         {
                             String date = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
+                            String txt = input.getText().toString();
+                            if(input.getText().toString() =="")
+                                txt = "Empty";
 
-                            db.insert(date,"Jmeno",logic.getMoves());
+                            db.insert(date,txt,logic.getMoves());
+
+
+
+
 
                         }
                     });
 
-                    alert.show();
+                    AlertDialog ad = alert.create();
+                    ad.show();
                     return false;
+
                 }
 
                 return false;

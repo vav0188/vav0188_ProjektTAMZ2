@@ -5,31 +5,48 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:theme="@android:style/Theme.Dialog"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:background="@drawable/background"
+    >
 
     <Button
         android:id="@+id/btnHighscore"
         android:layout_width="134dp"
         android:layout_height="65dp"
         android:text="Žebříček"
+        android:background="@color/colorPrimary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnNewGame"
-        app:layout_constraintVertical_bias="0.121" />
+        app:layout_constraintVertical_bias="0.164" />
+
+    <Button
+        android:id="@+id/btnNewGame"
+        android:layout_width="134dp"
+        android:layout_height="65dp"
+        android:text="Nová hra"
+        android:background="@color/colorPrimary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        app:layout_constraintVertical_bias="0.246" />
 
     <Button
         android:id="@+id/btnSettings"
         android:layout_width="134dp"
         android:layout_height="65dp"
         android:text="Nastavení"
+        android:background="@color/colorPrimary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnHighscore"
-        app:layout_constraintVertical_bias="0.171" />
+        app:layout_constraintVertical_bias="0.218" />
 
     <ImageView
         android:id="@+id/imageView"
@@ -42,15 +59,16 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@mipmap/ic_launcher_round" />
 
-    <Button
-        android:id="@+id/btnNewGame"
-        android:layout_width="134dp"
-        android:layout_height="65dp"
-        android:text="Nová hra"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:textSize="20dp"
+        android:textColor="@color/colorPrimaryDark"
+        android:text="Piškvorky"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView"
-        app:layout_constraintVertical_bias="0.097" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
